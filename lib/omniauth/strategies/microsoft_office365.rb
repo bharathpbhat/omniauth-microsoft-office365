@@ -66,6 +66,7 @@ module OmniAuth
       end
 
       def avatar_file
+        puts "Access token: #{access_token}"
         photo = access_token.get("https://outlook.office.com/api/v2.0/me/photo/$value")
         ext   = photo.content_type.sub("image/", "") # "image/jpeg" => "jpeg"
 
@@ -81,6 +82,7 @@ module OmniAuth
         elsif e.code['code'] == 'GetUserPhoto' && e.code['message'].match('not supported')
           nil
         else
+          puts e.message
           raise
         end
       end
